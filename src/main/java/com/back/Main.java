@@ -8,7 +8,10 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        int x = 1;
+        int count = 0;
+
+        String[] contents = new String[10];
+        String[] authors = new String[10];
 
         while (true) {
             System.out.print("명령) ");
@@ -20,9 +23,21 @@ public class Main {
             } else if (cmd.equals("등록")) {
                 System.out.print("명언 : ");
                 String content = sc.nextLine();
+
                 System.out.print("작가 : ");
                 String author = sc.nextLine();
-                System.out.println(x++ +  "번 명언이 등록되었습니다.");
+
+                contents[count] = content;
+                authors[count] = author;
+
+                System.out.println(++count +  "번 명언이 등록되었습니다.");
+            } else if (cmd.equals("목록")) {
+                System.out.println("번호 / 작가 / 명언");
+                System.out.println("----------------------");
+
+                for (int i = count - 1; i >= 0; i--) {
+                    System.out.println( (i + 1) + " / " + authors[i] + " / " + contents[i]);
+                }
             }
         }
     }
