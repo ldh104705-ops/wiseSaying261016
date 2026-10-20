@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     static void main() {
-        System.out.println("== 명언앱 ==");
+        System.out.println("== 명언 앱 ==");
 
         Scanner sc = new Scanner(System.in);
 
@@ -21,6 +21,11 @@ public class Main {
             if (cmd.equals("종료")) {
                 break;
             } else if (cmd.equals("등록")) {
+                if (count >= contents.length) {
+                    System.out.println("더 이상 등록할 수 없습니다.");
+                    continue;
+                }
+
                 System.out.print("명언 : ");
                 String content = sc.nextLine();
 
