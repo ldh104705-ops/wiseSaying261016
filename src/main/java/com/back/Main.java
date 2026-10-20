@@ -3,47 +3,49 @@ package com.back;
 import java.util.Scanner;
 
 public class Main {
-    static void main() {
+    public static void main(String[] args) {
         System.out.println("== 명언 앱 ==");
 
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        int count = 0;
+        int lastId = 0;
 
-        String[] contents = new String[10];
-        String[] authors = new String[10];
+        WiseSaying[] wiseSayings = new WiseSaying[100];
+        int wiseSayingsLastIndex = -1;
 
         while (true) {
             System.out.print("명령) ");
-
-            String cmd = sc.nextLine().trim();
+            String cmd = scanner.nextLine().trim();
 
             if (cmd.equals("종료")) {
                 break;
-            } else if (cmd.equals("등록")) {
-                if (count >= contents.length) {
-                    System.out.println("더 이상 등록할 수 없습니다.");
-                    continue;
-                }
-
-                System.out.print("명언 : ");
-                String content = sc.nextLine();
-
-                System.out.print("작가 : ");
-                String author = sc.nextLine();
-
-                contents[count] = content;
-                authors[count] = author;
-
-                System.out.println(++count +  "번 명언이 등록되었습니다.");
             } else if (cmd.equals("목록")) {
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
 
-                for (int i = count - 1; i >= 0; i--) {
-                    System.out.println( (i + 1) + " / " + authors[i] + " / " + contents[i]);
+                for (int i = wiseSayingsLastIndex; i >= 0; i--) {
+                    WiseSaying wiseSaying = wiseSayings[i];
+
+                    System.out.printf("%d / %s / %s\n", wiseSaying.id, wiseSaying.author, wiseSaying.content);
                 }
+            } else if (cmd.equals("등록")) {
+                System.out.print("명언 : ");
+                String wiseSayingContent = scanner.nextLine().trim();
+                System.out.print("작가 : ");
+                String wiseSayingAuthor = scanner.nextLine().trim();
+
+                int id = ++lastId;
+
+                WiseSaying wiseSaying = new WiseSaying();
+                wiseSaying.id = id;
+                wiseSaying.content = wiseSayingContent;
+                wiseSaying.author = wiseSayingAuthor;
+                wiseSayings[++wiseSayingsLastIndex] = wiseSaying;
+
+                System.out.println("%d번 명언이 등록되었습니다.".formatted(id));
             }
         }
+
+        scanner.close();
     }
 }
