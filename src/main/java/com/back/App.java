@@ -28,23 +28,28 @@ public class App {
         scanner.close();
     }
 
-    private void actionWrite() {
+    void actionWrite() {
         System.out.print("명언 : ");
-        String wiseSayingContent = scanner.nextLine().trim();
+        String content = scanner.nextLine().trim();
         System.out.print("작가 : ");
-        String wiseSayingAuthor = scanner.nextLine().trim();
+        String author = scanner.nextLine().trim();
 
-        int id = ++lastId;
+        WiseSaying wiseSaying = write(content, author);
 
-        WiseSaying wiseSaying = new WiseSaying();
-        wiseSaying.id = id;
-        wiseSaying.content = wiseSayingContent;
-        wiseSaying.author = wiseSayingAuthor;
-        wiseSayings[++wiseSayingsLastIndex] = wiseSaying;
-        System.out.println("%d번 명언이 등록되었습니다.".formatted(id));
+
+        System.out.println("%d번 명언이 등록되었습니다.".formatted(wiseSaying.id));
     }
 
-    private void actionList() {
+    WiseSaying write(String content, String author) {
+        WiseSaying wiseSaying = new WiseSaying();
+        wiseSaying.id = ++lastId;
+        wiseSaying.content = content;
+        wiseSaying.author = author;
+        wiseSayings[++wiseSayingsLastIndex] = wiseSaying;
+        return wiseSaying;
+    }
+
+    void actionList() {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
 
